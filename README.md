@@ -5,25 +5,25 @@ In this project, we will be mainly using useState + useEffect.
 
 ## Member Task
 Member 1:
-AppLayout.jsx
-TopBar.jsx
-Sidebar.jsx
-app.css
+AppLayout.jsx |
+TopBar.jsx |
+Sidebar.jsx |
+app.css |
 
 Member 2:
-TaskPage.jsx
-TaskToolbar.jsx
-TaskList.jsx
-TaskCard.jsx
-taskFilters.js
+TaskPage.jsx |
+TaskToolbar.jsx |
+TaskList.jsx |
+TaskCard.jsx |
+taskFilters.js |
 
 Member 3:
-TaskContext.jsx
-TaskFormPanel.jsx
-TaskForm.jsx
-initialTasks.js
-App.jsx
-main.jsx
+TaskContext.jsx |
+TaskFormPanel.jsx |
+TaskForm.jsx |
+initialTasks.js |
+App.jsx |
+main.jsx |
 
 ## Assignment Requirements
 - Minimum of 5 distinct pages/views within the application to demonstrate routing and component organization.
