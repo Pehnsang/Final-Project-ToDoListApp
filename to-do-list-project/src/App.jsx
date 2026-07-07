@@ -3,7 +3,8 @@ import AppLayout from "./components/layout/AppLayout";
 import TaskPage from "./components/tasks/TaskPage";
 import TaskFormPanel from "./components/form/TaskFormPanel";
 import { initialTasks } from "./data/initialTasks";
-import "./styles/app.css";
+import "../styles/app.css";
+
 
 function App() {
   const [tasks, setTasks] = useState(initialTasks);

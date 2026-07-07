@@ -19,3 +19,29 @@
 // category
 // priority badge
 // completed style if task is done.
+import { useTasks } from "../../context/TaskContext";
+
+export default function TaskCard ( { task } ) {
+    const {
+        toggleComplete,
+        openEditForm,
+        deleteTask 
+    } = useTasks();
+    return (
+        <div className={task.completed ? "task-completed" : "task"}>
+            <input 
+            type="checkbox" 
+            checked={task.completed}
+            onChange={()=>toggleComplete(task.id)}
+            />
+            <span>{task.title}</span>
+            <button onClick={() => openEditForm(task)}>Edit</button>
+            <button onClick={() => deleteTask(task.id)}>Delete</button>
+            <div>
+                <p>{task.dueDate}</p>
+                <p>{task.category}</p>
+                <span>{task.priority}</span>
+            </div>
+        </div>
+    );
+}
