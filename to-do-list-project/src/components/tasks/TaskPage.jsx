@@ -49,7 +49,7 @@ export default function TaskPage () {
         <div>
            <h1>{getTitle()}</h1>
            <TaskToolbar />
-           <TaskLisk tasks={filteredTasks} />
+           <TaskList filteredTasks={filteredTasks} />
         </div>
     );
 };
