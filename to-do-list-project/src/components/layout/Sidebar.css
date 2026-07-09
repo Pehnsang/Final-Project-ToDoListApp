@@ -1,0 +1,42 @@
+.sidebar {
+  padding: 20px;
+  background: #ffffff;
+  border-right: 1px solid #e2e0dd;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+
+.sidebar section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+
+.sidebar h4 {
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: #948f89;
+  font-weight: 500;
+}
+
+
+.sidebar button {
+  border: none;
+  background: transparent;
+  padding: 8px 10px;
+  border-radius: 8px;
+  text-align: left;
+  color: #1c1b1a;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+
+.sidebar button:hover,
+.sidebar button.active {
+  background: #eeedfc;
+  color: #4f46e5;
+}
