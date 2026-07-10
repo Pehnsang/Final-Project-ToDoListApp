@@ -1,111 +1,68 @@
-import { createContext, useContext, useState, useEffect } from "react";
-import { initialTasks } from "../data/initialTasks";
+import { createContext, useContext, useState } from "react";
+import { initialTasks } from "../data/initialTasks"; // adjust path if needed
 
-// TODO (Member 3 - Data Logic): this file is the single source of truth
-// for the whole app. All task data, selected menu, selected category,
-// selected priority, and add/edit/delete/complete functions should live here.
+const TaskContext = createContext();
 
+export function TaskProvider({ children }) {
+  // Move ALL of this from App.jsx into here:
+  const [tasks, setTasks] = useState(initialTasks);
+  const [selectedView, setSelectedView] = useState("today");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedPriority, setSelectedPriority] = useState("");
+  const [editingTask, setEditingTask] = useState(null);
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
-// TODO (Member 3): create TaskContext using createContext().
-    const TaskContext = createContext();
+  function handleAddClick() {
+    setEditingTask(null);
+    setIsFormOpen(true);
+  }
 
-    export function useTasks() {
-        return useContext(TaskContext);
+  function handleSaveTask(taskData) {
+    if (editingTask) {
+      setTasks(tasks.map(task => task.id === editingTask.id ? { ...task, ...taskData } : task));
+    } else {
+      setTasks([...tasks, { id: Date.now(), ...taskData, completed: false }]);
     }
+    setIsFormOpen(false);
+    setEditingTask(null);
+  }
 
-export default function TaskProvider({ children }) {
-    const [tasks, setTasks] = useState(initialTasks)
-    const [selectedView, setSelectedView] = useState("today")
-    const [selectedCategory, setSelectedCategory] = useState("")
-    const [selectedPriority, setSelectedPriority] = useState("")
-    const [editingTask, setEditingTask] = useState(null)
-    const [isFormOpen, setIsFormOpen] = useState(false)
+  function handleEditTask(task) {
+    setEditingTask(task);
+    setIsFormOpen(true);
+  }
 
-    const addTask = (taskData) => {
-        const newTasks = {
-            id: Date.now(),
-            ...taskData,
-            completed: false,
-        }
-        setTasks([...tasks, newTasks])
-    };
+  function handleDeleteTask(id) {
+    setTasks(tasks.filter(task => task.id !== id));
+  }
 
+  function handleToggleComplete(id) {
+    setTasks(tasks.map(task => task.id === id ? { ...task, completed: !task.completed } : task));
+  }
 
-    const updateTask = (id,taskData) => {
-        setTasks(
-            tasks.map((task) => 
-                task.id === id ? { ...task, ...taskData} : task
-            )
-        );
-    }
-    const deleteTask = (id) => {
-        setTasks(tasks.filter((task) => task.id !== id))
-    }
+  function handleDiscard() {
+    setIsFormOpen(false);
+    setEditingTask(null);
+  }
 
-    const  toggleComplete = (id) => {
-        tasks.map((task) => {
-            task.id === id
-            ? {...task, completed: !task.completed} : task
-        })
-    }
-
-    const openAddForm = () => {
-        setEditingTask(null);
-        setIsFormOpen(true);
-    }
-    
-    const openEditForm = (task) => {
-        setEditingTask(task);
-        setIsFormOpen(true);
-    }
-
-    const closeForm = () => {
-        setEditingTask(null)
-        setIsFormOpen(false)
-    }
-
-    return (
-        <TaskContext.Provider
-            value={{
-                tasks, 
-                selectedView,
-                selectedCategory,
-                editingTask,
-                isFormOpen,
-                addTask,
-                updateTask,
-                deleteTask,
-                toggleComplete,
-                openAddForm,
-                openEditForm,
-                closeForm
-            }}
-            >
-            {children}
-        </TaskContext.Provider>
-
-    )
+  return (
+    <TaskContext.Provider value={{
+      tasks, selectedView, selectedCategory, selectedPriority, 
+      editingTask, isFormOpen,
+      setSelectedView, setSelectedCategory, setSelectedPriority,
+      addTask: handleAddClick,
+       updateTask: handleSaveTask,
+    deleteTask: handleDeleteTask,
+      toggleComplete: handleToggleComplete,
+       openAddForm: handleAddClick, 
+      openEditForm: handleEditTask,
+       closeForm: handleDiscard
+    }}>
+      {children}
+    </TaskContext.Provider>
+  );
 }
-// TODO (Member 3): create and export useTasks().
-// Keep this name. App.jsx, Sidebar.jsx, TaskPage.jsx, TaskCard.jsx,
-// and TaskForm.jsx will all use useTasks() to read or update app data.
 
-// TODO (Member 3): inside TaskProvider, create these states:
-// tasks
-// selectedView
-// selectedCategory
-// selectedPriority
-// editingTask
-// isFormOpen
-
-// TODO (Member 3): create these functions:
-// addTask(taskData)
-// updateTask(id, taskData)
-// deleteTask(id)
-// toggleComplete(id)
-// openAddForm()
-// openEditForm(task)
-// closeForm()
-
-// TODO (Member 3): wrap children with TaskContext.Provider
-// and pass all states/functions in the value object.
+export function useTasks() {
+  return useContext(TaskContext);
+}
