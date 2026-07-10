@@ -9,12 +9,12 @@
 // If there is time, connect it to category/priority filtering.
 import { useTasks } from "../../context/TaskContext";
 
+
 export function TaskToolbar() {
     const { openAddForm } = useTasks();
     return (
         <div>
             <button onClick = {openAddForm}>Add New Task</button>
-            <button>Filter</button>
         </div>
     );
 }
