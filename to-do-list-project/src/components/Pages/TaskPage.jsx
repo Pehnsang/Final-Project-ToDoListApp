@@ -12,42 +12,28 @@
 // Example: today = "Today", overdue = "Overdue".
 
 // TODO (Member 2): render TaskToolbar and TaskList.
-import { useTasks } from "../../context/TaskContext";
-import { getFilteredTasks } from '../../ultis/taskFilters';
-import TaskList from './TaskList';
-import { TaskToolbar } from './TaskToolbar';
+import { useTasks } from "../context/TaskContext";
+import { getFilteredTasks } from '../ultis/taskFilters';
+import TaskList from '../components/tasks/TaskList';
+import { TaskToolbar } from '../components/tasks/TaskToolbar';
 
 export default function TaskPage () {
     const {
         tasks,
-        selectedView,
         selectedCategory,
         selectedPriority
     } = useTasks();
 
     const filteredTasks = getFilteredTasks(
         tasks,
-        selectedView,
+        "all",
         selectedCategory,
         selectedPriority
     );
 
-    const getTitle = () => {
-        switch (selectedView) {
-            case "overdue" :
-                return "Overdue";
-            case "today":
-                return "Today";
-            case "upcoming": 
-                return "Upcoming";
-            default: 
-                return "Tasks";
-        }
-    }
-
     return (
         <div>
-           <h1>{getTitle()}</h1>
+           <h1>Task</h1>
            <TaskToolbar />
            <TaskList filteredTasks={filteredTasks} />
         </div>
