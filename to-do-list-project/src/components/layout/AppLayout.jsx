@@ -1,32 +1,31 @@
-// TODO (Member 1 - Layout): create the main app layout.
-
-// TODO (Member 1): layout should have:
-// TopBar at the top
-// Sidebar on the left
-// TaskPage in the center
-// TaskFormPanel on the right
-
-// TODO (Member 1): import and use:
-// TopBar
-// Sidebar
-// TaskPage
-// TaskFormPanel
-
+// 1. Remove the useTasks import from Sidebar.jsx, you won't need it anymore.
 import Sidebar from "./Sidebar";
 import TopBar from "./TopBar";
 import TaskPage from "../tasks/TaskPage";
 import TaskFormPanel from "../form/TaskFormPanel";
-import "./AppLayout.css";
 
-
-function AppLayout() {
-
+export default function AppLayout({ 
+  selectedView, 
+  onSelectView, 
+  selectedCategory, 
+  onSelectCategory, 
+  selectedPriority, 
+  onSelectPriority,
+  mainContent, 
+  rightPanel   
+}) {
   return (
     <div className="app-layout">
       <TopBar />
-     
       <div className="layout-body">
-        <Sidebar />
+        <Sidebar 
+          selectedView={selectedView}
+          onSelectView={onSelectView}
+          selectedCategory={selectedCategory}
+          onSelectCategory={onSelectCategory}
+          selectedPriority={selectedPriority}
+          onSelectPriority={onSelectPriority}
+        />
 
         <main className="task-area">
           <TaskPage />
@@ -38,10 +37,5 @@ function AppLayout() {
       
       </div>
     </div>
-
   );
-
 }
-
-
-export default AppLayout;

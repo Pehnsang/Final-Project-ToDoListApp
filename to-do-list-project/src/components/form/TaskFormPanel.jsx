@@ -9,7 +9,7 @@
 // TODO (Member 3): if no form is open, either show an empty disabled form
 // or a simple message like "Select or add a task".
 
-import TaskProvider, { useTasks } from "../../context/TaskContext";
+import { TaskProvider, useTasks } from "../../context/TaskContext";
 import TaskForm from "./TaskForm";
 
 export default function TaskFormPanel() {

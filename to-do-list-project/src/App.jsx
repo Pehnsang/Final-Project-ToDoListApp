@@ -3,16 +3,24 @@ import AppLayout from "./components/layout/AppLayout";
 import TaskPage from "./components/tasks/TaskPage";
 import TaskFormPanel from "./components/form/TaskFormPanel";
 import { initialTasks } from "./data/initialTasks";
+import { TaskProvider } from "./context/TaskContext";
+import { useTasks } from "./context/TaskContext";
 // import "/App.css";
 
-
-function App() {
+function AppContent() {
   const [tasks, setTasks] = useState(initialTasks);
-  const [selectedView, setSelectedView] = useState("today");
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedPriority, setSelectedPriority] = useState("");
   const [editingTask, setEditingTask] = useState(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
+
+  // 1. GRAB THEM FROM CONTEXT HERE:
+  const { 
+    selectedView, 
+    setSelectedView, 
+    selectedCategory, 
+    setSelectedCategory, 
+    selectedPriority, 
+    setSelectedPriority 
+  } = useTasks();
 
   function handleAddClick() {
     setEditingTask(null);
@@ -90,4 +98,12 @@ function App() {
   );
 }
 
-export default App;
+function App() {
+  return (
+    <TaskProvider>
+      <AppContent />
+    </TaskProvider>
+  );
+}
+
+export default App; 
